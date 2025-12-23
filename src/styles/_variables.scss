@@ -1,0 +1,70 @@
+// =====================================================
+// Variáveis SCSS - Design System
+// =====================================================
+
+// Cores principais
+$color-primary: hsl(142, 76%, 36%);
+$color-primary-light: hsl(142, 76%, 46%);
+$color-primary-dark: hsl(142, 76%, 26%);
+
+// Cores de interface
+$color-background: hsl(0, 0%, 100%);
+$color-foreground: hsl(222, 84%, 5%);
+$color-muted: hsl(215, 16%, 47%);
+$color-border: hsl(214, 32%, 91%);
+
+// Espaçamentos
+$spacing: (
+  "xs": 0.25rem,
+  "sm": 0.5rem,
+  "md": 1rem,
+  "lg": 1.5rem,
+  "xl": 2rem,
+  "2xl": 3rem,
+);
+
+// Tipografia
+$font-family-sans: 'Inter', system-ui, -apple-system, sans-serif;
+$font-family-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+$font-sizes: (
+  "xs": 0.75rem,
+  "sm": 0.875rem,
+  "base": 1rem,
+  "lg": 1.125rem,
+  "xl": 1.25rem,
+  "2xl": 1.5rem,
+  "3xl": 1.875rem,
+  "4xl": 2.25rem,
+);
+
+// Breakpoints
+$breakpoints: (
+  "sm": 640px,
+  "md": 768px,
+  "lg": 1024px,
+  "xl": 1280px,
+  "2xl": 1536px,
+);
+
+// Sombras
+$shadows: (
+  "sm": 0 1px 2px 0 rgba(0, 0, 0, 0.05),
+  "md": 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+  "lg": 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+  "xl": 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+);
+
+// Bordas
+$border-radius: (
+  "sm": 0.25rem,
+  "md": 0.5rem,
+  "lg": 0.75rem,
+  "xl": 1rem,
+  "full": 9999px,
+);
+
+// Transições
+$transition-fast: 150ms ease;
+$transition-normal: 300ms ease;
+$transition-slow: 500ms ease;

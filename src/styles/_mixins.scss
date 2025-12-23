@@ -1,0 +1,156 @@
+// =====================================================
+// Mixins SCSS - Utilitários Reutilizáveis
+// =====================================================
+
+@use 'variables' as *;
+
+// Flexbox
+@mixin flex($direction: row, $justify: flex-start, $align: stretch) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Grid
+@mixin grid($columns: 1, $gap: 1rem) {
+  display: grid;
+  grid-template-columns: repeat($columns, 1fr);
+  gap: $gap;
+}
+
+// Responsivo
+@mixin responsive($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (min-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @warn "Breakpoint '#{$breakpoint}' não encontrado.";
+  }
+}
+
+// Container
+@mixin container($max-width: 1280px) {
+  width: 100%;
+  max-width: $max-width;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  
+  @include responsive(md) {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+// Sombras
+@mixin shadow($size: md) {
+  @if map-has-key($shadows, $size) {
+    box-shadow: map-get($shadows, $size);
+  }
+}
+
+// Transições
+@mixin transition($property: all, $duration: $transition-normal) {
+  transition: $property $duration;
+}
+
+// Truncate text
+@mixin truncate($lines: 1) {
+  @if $lines == 1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  } @else {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+// Aspect Ratio
+@mixin aspect-ratio($width: 16, $height: 9) {
+  aspect-ratio: $width / $height;
+}
+
+// Gradient
+@mixin gradient($direction: to right, $start: $color-primary, $end: $color-primary-light) {
+  background: linear-gradient($direction, $start, $end);
+}
+
+// Glass effect
+@mixin glass($blur: 10px, $opacity: 0.8) {
+  background: rgba(255, 255, 255, $opacity);
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur);
+}
+
+// Button base
+@mixin button-base {
+  @include flex-center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: map-get($border-radius, md);
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  @include transition;
+  
+  &:focus-visible {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// Card base
+@mixin card-base {
+  background: $color-background;
+  border: 1px solid $color-border;
+  border-radius: map-get($border-radius, lg);
+  padding: map-get($spacing, lg);
+  @include shadow(md);
+}
+
+// Hover lift effect
+@mixin hover-lift($distance: 4px) {
+  @include transition(transform);
+  
+  &:hover {
+    transform: translateY(-$distance);
+  }
+}
+
+// Absolute center
+@mixin absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// Screen reader only
+@mixin sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
