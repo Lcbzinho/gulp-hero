@@ -1,0 +1,174 @@
+// =====================================================
+// SASS Configuration - Equivalente às tarefas do Gulp
+// =====================================================
+
+// Variáveis SASS
+$colors: (
+  "primary": hsl(142, 76%, 36%),
+  "primary-light": hsl(142, 76%, 46%),
+  "secondary": hsl(210, 40%, 96%),
+  "background": hsl(0, 0%, 100%),
+  "foreground": hsl(222, 84%, 5%),
+  "muted": hsl(215, 16%, 47%),
+  "accent": hsl(142, 76%, 90%),
+  "border": hsl(214, 32%, 91%),
+);
+
+// Função para obter cor
+@function color($name) {
+  @return map-get($colors, $name);
+}
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin responsive($breakpoint) {
+  @if $breakpoint == sm {
+    @media (min-width: 640px) { @content; }
+  } @else if $breakpoint == md {
+    @media (min-width: 768px) { @content; }
+  } @else if $breakpoint == lg {
+    @media (min-width: 1024px) { @content; }
+  } @else if $breakpoint == xl {
+    @media (min-width: 1280px) { @content; }
+  }
+}
+
+@mixin card-shadow {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+              0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+@mixin transition($property: all, $duration: 0.3s, $easing: ease) {
+  transition: $property $duration $easing;
+}
+
+// Animações
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+// Classes utilitárias SASS
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.animate-slideIn {
+  animation: slideIn 0.5s ease-out forwards;
+}
+
+.animate-pulse {
+  animation: pulse 2s infinite;
+}
+
+// Grid System
+.grid-auto {
+  display: grid;
+  gap: 1.5rem;
+  
+  @include responsive(sm) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @include responsive(lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+// Card Component (SASS)
+.sass-card {
+  background: color("background");
+  border: 1px solid color("border");
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  @include card-shadow;
+  @include transition;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+  }
+  
+  &__title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: color("foreground");
+    margin-bottom: 0.5rem;
+  }
+  
+  &__description {
+    color: color("muted");
+    line-height: 1.6;
+  }
+}
+
+// Button Component (SASS)
+.sass-button {
+  @include flex-center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  @include transition;
+  
+  &--primary {
+    background: color("primary");
+    color: white;
+    
+    &:hover {
+      background: color("primary-light");
+    }
+  }
+  
+  &--secondary {
+    background: color("secondary");
+    color: color("foreground");
+    
+    &:hover {
+      background: darken(color("secondary"), 5%);
+    }
+  }
+  
+  &--outline {
+    background: transparent;
+    border: 2px solid color("primary");
+    color: color("primary");
+    
+    &:hover {
+      background: color("accent");
+    }
+  }
+}
